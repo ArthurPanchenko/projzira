@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="project-info">
+        <h1>{{ project.title }}</h1>
+        <p id="updateOverlay">Update</p>
+    </div>
+
+
+    <div id="overlay">
+        <div class="">
+            <form class="form" action="{% url 'update-project' project.uuid %}" method="post">
+                {% csrf_token %}
+                {{ update_form.as_p }}
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="second-form">
+        <p class="form-title">Create todo list for {{ project.title }}</p>
+        <form class="form" action="{% url 'create-todo' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="project" value="{{project.uuid}}">
+            {{ todo_form.as_p }}
+            <button type="submit" name="createTodo">Create TodoList for {{project.title}}</button>
+        </form>
+    </div>
+        
+
+
+    <div class="main-list">
+        <ul>
+            {% for todo in todos %}
+                <li class="list-item">
+                    <a href="{{ todo.get_absolute_url }}">{{ todo.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div> 
+    
+    <script>
+        upd_button = document.getElementById('updateOverlay')
+        upd_button.addEventListener('click', ()=>{
+            el = document.getElementById("overlay");
+	        el.style.display = (el.style.display == "block") ? "none" : "block";
+        })
+    </script>
+    
+
+{% endblock content %}

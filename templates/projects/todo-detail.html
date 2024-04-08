@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="project-info">
+        <h1>{{ todo.title }}</h1>
+    </div>
+
+
+    <div class="second-form">
+        <p class="form-title">Create task for {{ todo.title }} list</p>
+        <form class="form" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="project" value="{{project.uuid}}">
+            {{ task_form.as_p }}
+            <button type="submit" name="createTask">Create task</button>
+        </form>
+    </div>
+
+    <div class="main-list">
+        <ul>
+            {% for task in todo.task_set.all %}
+                <li class="list-item task-item
+                    {% if task.is_done %}
+                    is_done
+                    {% endif %}
+                ">
+                    <p>{{ task.title }}</p>
+                    <a href="{% url 'update-task' task.pk %}">
+                        {% if task.is_done %}
+                        Un{% endif %}Done
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div> 
+{% endblock content %}

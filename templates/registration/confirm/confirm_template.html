@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if success %}
+        {{ user.username }}, your account is confirmed!
+    {% else %}
+        Error, invalid token!
+    {% endif %}
+    <a href="{% url 'login' %}">login here</a>
+{% endblock content %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="form">
+        <p class="form-title">Create new project</p>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="form-button" type="submit">Create</button>
+        </form>
+    </div>
+    
+    
+    <div class="main-list">
+        <ul>
+            {% for project in projects %}
+                <li class="list-item">
+                    <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+
+{% endblock content %}

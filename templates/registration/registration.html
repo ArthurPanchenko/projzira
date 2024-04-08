@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    register
+    {% if forms.errors %}
+    
+        {% for field, error in forms.errors.items %}
+            <li style="color: red">{{ error }}</li>
+        {% endfor %}
+
+    {% endif %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Register">
+    </form>
+{% endblock content %}
